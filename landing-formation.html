@@ -281,7 +281,7 @@
 
 <!-- Urgency bar -->
 <div class="urgency-bar">
-  🔥 Prévente · Tarif préférentiel jusqu'au 10 octobre — après, le prix augmente définitivement
+  🔥 Prévente · Tarif préférentiel jusqu'au 15 octobre 21h — après, le prix augmente définitivement
 </div>
 
 <!-- Nav -->
@@ -312,7 +312,7 @@
 <section class="hero" id="hero">
   <div class="hero-tag">
     <span class="nav-dot"></span>
-    Prévente · Accès module 1 le 10 octobre · Tarif préférentiel jusqu'au 10 octobre
+    Prévente · Accès module 1 le 10 octobre · Tarif préférentiel jusqu'au 15 octobre 21h
   </div>
 
   <h1>Apprends à monter<br>tes propres vidéos <em>faceless</em> sans musique.</h1>
@@ -329,7 +329,7 @@
 
   <!-- Countdown -->
   <div style="margin-top:48px; text-align:center;">
-    <p style="font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Temps restant avant le premier module</p>
+    <p style="font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Temps restant avant la fin du prix réduit</p>
     <div class="countdown-wrap" id="countdown">
       <div class="cd-unit"><span class="cd-num" id="cd-j">10</span><span class="cd-label">Jours</span></div>
       <span class="cd-sep">:</span>
@@ -776,12 +776,12 @@
 <script>
 // Countdown vers le 10 octobre
 (function(){
-  const target = new Date('2026-10-10T00:00:00');
+  const target = new Date('2026-10-15T21:00:00');
   function tick(){
     const now = new Date();
     const diff = target - now;
     if (diff <= 0) {
-      document.getElementById('countdown').innerHTML = '<span style="color:var(--violet-l);font-weight:700;">Le 10 octobre — Accès au module 1 !</span>';
+      document.getElementById('countdown').innerHTML = '<span style="color:var(--violet-l);font-weight:700;">Le tarif prévente est terminé.</span>';
       return;
     }
     const j = Math.floor(diff / 86400000);
