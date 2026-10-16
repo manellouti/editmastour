@@ -13,16 +13,27 @@
 .urgency-bar {
   background: var(--violet);
   color: #fff;
-  text-align: center;
-  padding: 10px 16px;
   font-size: .8rem;
   font-weight: 600;
   letter-spacing: .03em;
   position: sticky;
   top: 0;
   z-index: 200;
+  overflow: hidden;
+  padding: 10px 0;
 }
-.urgency-bar strong { font-weight: 900; }
+.urgency-track {
+  display: flex;
+  width: max-content;
+  animation: urgency-scroll 32s linear infinite;
+}
+.urgency-track:hover { animation-play-state: paused; }
+.urgency-chunk { display: flex; align-items: center; white-space: nowrap; padding-right: 0; }
+.urgency-sep { margin: 0 18px; opacity: .4; }
+@keyframes urgency-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
 
 /* ── Countdown ── */
 .countdown-wrap {
@@ -108,71 +119,78 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 12px;
+  margin-top: 12px;
+}
+/* ── Resource banner ── */
+.res-banner {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px 24px 24px;
   margin-top: 32px;
 }
-.perk-template {
-  grid-column: 1 / -1;
-  padding: 0 !important;
-  overflow: hidden;
+.res-headline {
+  text-align: center;
+  margin-bottom: 20px;
 }
-.perk-template-inner {
-  display: flex;
-  align-items: stretch;
-  gap: 0;
+.res-headline-num {
+  display: block;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--text);
+  line-height: 1;
 }
-.perk-template-text {
-  flex: 1;
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  padding: 24px 24px 24px 22px;
+.res-headline-sub {
+  display: block;
+  font-size: .78rem;
+  color: var(--muted);
+  margin-top: 5px;
 }
-.perk-template-preview {
-  flex-shrink: 0;
-  width: 200px;
-  background: linear-gradient(135deg, #1a1027 0%, #2a1845 100%);
+.res-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+@media (max-width: 540px) { .res-grid { grid-template-columns: repeat(2, 1fr); } }
+.res-tile {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 8px 12px;
+  text-align: center;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 20px 16px;
-  position: relative;
+  gap: 2px;
 }
-.perk-phone-wrap {
-  width: 80px;
-  height: 145px;
-  border-radius: 14px;
-  overflow: hidden;
-  position: relative;
-  border: 2px solid rgba(255,255,255,.15);
-  box-shadow: 0 8px 32px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.05);
+.res-tile-icon { font-size: 1.25rem; }
+.res-tile-num {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--text);
+  line-height: 1.1;
+  margin-top: 3px;
 }
-.perk-phone-notch {
-  position: absolute;
-  top: 5px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 20px;
-  height: 4px;
-  border-radius: 2px;
-  background: rgba(255,255,255,.25);
-  z-index: 2;
-}
-.perk-phone-label {
-  position: absolute;
-  bottom: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: .5rem;
-  color: rgba(255,255,255,.5);
-  white-space: nowrap;
-  letter-spacing: .04em;
+.res-tile-label { font-size: .68rem; color: var(--muted); line-height: 1.3; }
+.res-tile-incl {
+  font-size: .58rem;
+  font-weight: 700;
+  color: var(--violet-l);
   text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-top: 2px;
 }
-@media (max-width: 480px) {
-  .perk-template-inner { flex-direction: column; }
-  .perk-template-preview { width: 100%; padding: 16px; align-items: center; }
-  .perk-phone-wrap { width: 90px; height: 160px; }
+/* ── Apercu video dans perk card ── */
+.perk-video-thumb {
+  flex-shrink: 0;
+  width: 44px;
+  height: 78px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1.5px solid var(--border);
+  align-self: center;
 }
+.perk-video-thumb video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .perk-item {
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -344,8 +362,29 @@
 <body>
 
 <!-- Urgency bar -->
-<div class="urgency-bar">
-  ✨ Formation disponible — Accès immédiat au module 1 · Mises à jour incluses
+<div class="urgency-bar" aria-label="Contenu de la formation">
+  <div class="urgency-track">
+    <span class="urgency-chunk">
+      ✨&nbsp;+3&nbsp;000 ressources incluses<span class="urgency-sep">·</span>
+      🔊&nbsp;955 sons &amp; SFX<span class="urgency-sep">·</span>
+      🖼️&nbsp;2&nbsp;160 PNG &amp; overlays<span class="urgency-sep">·</span>
+      🎶&nbsp;60 anasheed<span class="urgency-sep">·</span>
+      🎨&nbsp;310 LUTs<span class="urgency-sep">·</span>
+      📝&nbsp;Template CapCut préréglé<span class="urgency-sep">·</span>
+      🎬&nbsp;Animations &amp; transitions incluses<span class="urgency-sep">·</span>
+      🎯&nbsp;Projet clé en main inclus<span class="urgency-sep">·</span>
+    </span>
+    <span class="urgency-chunk" aria-hidden="true">
+      ✨&nbsp;+3&nbsp;000 ressources incluses<span class="urgency-sep">·</span>
+      🔊&nbsp;955 sons &amp; SFX<span class="urgency-sep">·</span>
+      🖼️&nbsp;2&nbsp;160 PNG &amp; overlays<span class="urgency-sep">·</span>
+      🎶&nbsp;60 anasheed<span class="urgency-sep">·</span>
+      🎨&nbsp;310 LUTs<span class="urgency-sep">·</span>
+      📝&nbsp;Template CapCut préréglé<span class="urgency-sep">·</span>
+      🎬&nbsp;Animations &amp; transitions incluses<span class="urgency-sep">·</span>
+      🎯&nbsp;Projet clé en main inclus<span class="urgency-sep">·</span>
+    </span>
+  </div>
 </div>
 
 <!-- Nav -->
@@ -593,7 +632,7 @@
         <div class="idx">03</div>
         <div><div class="prog-title">Pro — Motion Design <span style="font-size:.7rem; background:var(--tint-b); border:1px solid var(--border); color:var(--muted); border-radius:6px; padding:2px 8px; margin-left:8px; font-weight:700; vertical-align:middle;">Décembre</span></div>
           <p class="prog-tag">Le niveau au-dessus. Des vidéos qui ne ressemblent plus à « bien montées » — elles ressemblent à produites.</p>
-          <p class="prog-transform">Contenu du module révélé en novembre.</p>
+          <p class="prog-transform">Contenu du module révélé en décembre.</p>
         </div>
       </div>
     </div>
@@ -620,51 +659,98 @@
 <section class="section" id="ce-que-tu-recois">
   <div class="section-head rv">
     <span class="section-title">Ce que tu reçois</span>
-    <span class="section-count">tout inclus</span>
+    <span class="section-count">+3 000 ressources</span>
   </div>
   <p class="section-lead rv">Un accès, pas juste une formation.</p>
 
+  <!-- Tuiles ressources -->
+  <div class="res-banner rv">
+    <div class="res-headline">
+      <span class="res-headline-num">+3 000 ressources</span>
+      <span class="res-headline-sub">dans ton Drive, disponibles dès le module 1</span>
+    </div>
+    <div class="res-grid">
+      <div class="res-tile">
+        <span class="res-tile-icon">🔊</span>
+        <span class="res-tile-num">955</span>
+        <span class="res-tile-label">Sons &amp; SFX</span>
+      </div>
+      <div class="res-tile">
+        <span class="res-tile-icon">🖼️</span>
+        <span class="res-tile-num">2 160</span>
+        <span class="res-tile-label">PNG &amp; overlays</span>
+      </div>
+      <div class="res-tile">
+        <span class="res-tile-icon">🎶</span>
+        <span class="res-tile-num">60</span>
+        <span class="res-tile-label">Anasheed</span>
+      </div>
+      <div class="res-tile">
+        <span class="res-tile-icon">🎨</span>
+        <span class="res-tile-num">310</span>
+        <span class="res-tile-label">LUTs</span>
+      </div>
+      <div class="res-tile">
+        <span class="res-tile-icon">🎬</span>
+        <span class="res-tile-label">Animations</span>
+        <span class="res-tile-incl">incluses</span>
+      </div>
+      <div class="res-tile">
+        <span class="res-tile-icon">🌀</span>
+        <span class="res-tile-label">Fonds animés</span>
+        <span class="res-tile-incl">inclus</span>
+      </div>
+      <div class="res-tile">
+        <span class="res-tile-icon">✂️</span>
+        <span class="res-tile-label">Transitions</span>
+        <span class="res-tile-incl">incluses</span>
+      </div>
+      <div class="res-tile">
+        <span class="res-tile-icon">🔤</span>
+        <span class="res-tile-label">Police</span>
+        <span class="res-tile-incl">incluse</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cartes bonus et accès -->
   <div class="perks-grid rv">
     <div class="perk-item">
       <span class="perk-icon">🎬</span>
       <div>
         <div class="perk-title">Module 1 dès le 15 octobre</div>
-        <div class="perk-desc">Accès immédiat au niveau Débutante + le Drive de ressources complet dès la mise en ligne.</div>
+        <div class="perk-desc">Accès immédiat au niveau Débutante + toutes les ressources du Drive dès la mise en ligne.</div>
       </div>
     </div>
-    <div class="perk-item perk-template">
-      <div class="perk-template-inner">
-        <div class="perk-template-text">
-          <span class="perk-icon" style="font-size:1.3rem;">📦</span>
-          <div>
-            <div class="perk-title">Templates CapCut préréglés</div>
-            <div class="perk-desc">Des templates prêts à l'emploi, adaptés à tes codes. Tu montes plus vite, avec un rendu cohérent dès le départ — textes, animations, tout est déjà en place.</div>
-          </div>
-        </div>
-        <div class="perk-template-preview">
-          <div class="perk-phone-wrap">
-            <div class="perk-phone-notch"></div>
-            <video src="https://res.cloudinary.com/q8uwpexc/video/upload/q_auto,f_auto/clip24.mp4"
-              autoplay loop muted playsinline
-              style="width:100%; height:100%; object-fit:cover; border-radius:inherit; display:block;">
-            </video>
-            <div class="perk-phone-label">Aperçu template texte</div>
-          </div>
-        </div>
+    <div class="perk-item">
+      <span class="perk-icon">📝</span>
+      <div style="flex:1;">
+        <div class="perk-title">Template CapCut préréglé</div>
+        <div class="perk-desc">Textes, titres et CTA déjà animés, prêts à l'emploi. Tu l'installes sur ton PC et tu l'utilises directement dans tes vidéos.</div>
+      </div>
+      <div class="perk-video-thumb">
+        <video src="https://res.cloudinary.com/q8uwpexc/video/upload/q_auto,f_auto/clip24.mp4" autoplay loop muted playsinline></video>
+      </div>
+    </div>
+    <div class="perk-item">
+      <span class="perk-icon">🎯</span>
+      <div>
+        <div class="perk-title">Projet CapCut clé en main</div>
+        <div class="perk-desc">Tu as accès au projet fini directement sur ton PC. Tu l'ouvres, tu vois comment j'ai construit chaque élément dans le cas pratique, tu le testes et tu le modifies avec tes propres clips. Si tu bloques : tu regardes ce que j'ai fait dedans.</div>
       </div>
     </div>
     <div class="perk-item">
       <span class="perk-icon">🎵</span>
       <div>
-        <div class="perk-title">Anasheed triées par catégorie</div>
-        <div class="perk-desc">Une bibliothèque d'anasheed organisée par ambiance, émotion et style — tu trouves le son qu'il te faut en quelques secondes, sans perdre du temps à chercher.</div>
+        <div class="perk-title">60 anasheed triées par catégorie</div>
+        <div class="perk-desc">Organisées par ambiance, émotion et style. Tu trouves le son en quelques secondes, sans perdre du temps à chercher.</div>
       </div>
     </div>
     <div class="perk-item">
       <span class="perk-icon">🔄</span>
       <div>
         <div class="perk-title">Mises à jour incluses</div>
-        <div class="perk-desc">Nouvel effet CapCut, nouvelle technique, nouveau module bonus — pas besoin de repayer. Si tu es dedans, tu reçois tout.</div>
+        <div class="perk-desc">Nouvel effet CapCut, nouvelle technique, nouveau module bonus : pas besoin de repayer. Si tu es dedans, tu reçois tout.</div>
       </div>
     </div>
     <div class="perk-item">
@@ -677,15 +763,15 @@
     <div class="perk-item">
       <span class="perk-icon">➕</span>
       <div>
-        <div class="perk-title">Modules bonus à venir</div>
-        <div class="perk-desc">En novembre et au-delà : effets avancés, nouvelles techniques, nouveaux templates prêts à l'emploi — tout inclus sans repayer.</div>
+        <div class="perk-title">Modules à venir inclus</div>
+        <div class="perk-desc">Intermédiaire en novembre, Motion Design en décembre : effets avancés, nouvelles techniques, nouveaux formats. Tout inclus sans repayer.</div>
       </div>
     </div>
     <div class="perk-item">
       <span class="perk-icon">🔐</span>
       <div>
         <div class="perk-title">Accès tant que je suis là</div>
-        <div class="perk-desc">Ce n'est pas un accès à vie garanti — c'est un accès lié à mon activité. Tant que je suis là et que la formation existe, tu y as accès. Ce n'est pas une plateforme qui disparaît du jour au lendemain, c'est moi.</div>
+        <div class="perk-desc">Tant que je suis là et que la formation existe, tu y as accès. Ce n'est pas une plateforme qui disparaît du jour au lendemain, c'est moi.</div>
       </div>
     </div>
   </div>
