@@ -35,6 +35,37 @@
   to   { transform: translateX(-50%); }
 }
 
+/* ── Hero 2 colonnes ── */
+.hero-layout { display:flex; align-items:center; gap:52px; max-width:900px; width:100%; }
+.hero-left-col { flex:1; text-align:left; }
+.hero-right-col { flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:14px; }
+.hero-phone-wrap { position:relative; margin-bottom:10px; }
+.hero-big-phone {
+  width:130px; height:230px; border-radius:22px; overflow:hidden;
+  border:2.5px solid var(--border); background:#070510; position:relative;
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
+}
+.hero-big-phone video { width:100%; height:100%; object-fit:cover; display:block; }
+.hero-phone-notch {
+  position:absolute; top:8px; left:50%; transform:translateX(-50%);
+  width:26px; height:5px; border-radius:3px;
+  background:rgba(255,255,255,.15); z-index:2; pointer-events:none;
+}
+.hero-res-block {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:12px; padding:14px 16px; text-align:center; min-width:142px;
+}
+.hero-res-num { display:block; font-size:1.55rem; font-weight:900; color:var(--text); line-height:1; }
+.hero-res-sub { display:block; font-size:.68rem; color:var(--muted); margin-top:3px; }
+.hero-res-pills { display:flex; flex-wrap:wrap; gap:4px; justify-content:center; margin-top:8px; }
+.hero-res-pill { font-size:.6rem; color:var(--muted); background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:2px 7px; }
+@media (max-width:680px) {
+  .hero-layout { flex-direction:column; gap:24px; }
+  .hero-left-col { text-align:center; }
+  .hero-right-col { flex-direction:row; align-items:flex-start; gap:12px; }
+  .hero-res-block { min-width:unset; }
+}
+
 /* ── Countdown ── */
 .countdown-wrap {
   display: flex;
@@ -470,16 +501,36 @@
     Formation disponible · Accès immédiat au module 1
   </div>
 
-  <h1>Apprends à monter<br>tes propres vidéos <em>faceless</em> sans musique.</h1>
-
-  <p class="hero-sub">La méthode de montage qui existe enfin pour nous. Pensée pour tes codes, tes valeurs, tes contraintes.</p>
-
-  <div style="margin-top:32px; display:flex; flex-direction:column; align-items:center; gap:12px; max-width:400px; margin-inline:auto;">
-    <a href="#commander" class="btn-violet">
-      Obtenir l'accès
-      <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </a>
-    <span style="font-size:.8rem; color:var(--muted);">Accès immédiat · Mises à jour incluses</span>
+  <div class="hero-layout">
+    <div class="hero-left-col">
+      <h1>Apprends à monter<br>tes propres vidéos <em>faceless</em> sans musique.</h1>
+      <p class="hero-sub">La méthode de montage qui existe enfin pour nous. Pensée pour tes codes, tes valeurs, tes contraintes.</p>
+      <div style="margin-top:32px; display:flex; flex-direction:column; align-items:flex-start; gap:12px; max-width:400px;">
+        <a href="#commander" class="btn-violet">
+          Obtenir l'accès
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <span style="font-size:.8rem; color:var(--muted);">Accès immédiat · Mises à jour incluses</span>
+      </div>
+    </div>
+    <div class="hero-right-col">
+      <div class="hero-phone-wrap">
+        <div class="hero-big-phone">
+          <div class="hero-phone-notch"></div>
+          <video src="https://res.cloudinary.com/q8uwpexc/video/upload/q_auto,f_auto/clip24.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="tmpl-badge-avail">Template disponible</div>
+      </div>
+      <div class="hero-res-block">
+        <span class="hero-res-num">+3 000</span>
+        <span class="hero-res-sub">ressources incluses</span>
+        <div class="hero-res-pills">
+          <span class="hero-res-pill">+950 sons</span>
+          <span class="hero-res-pill">+2 000 overlays</span>
+          <span class="hero-res-pill">+300 LUTs</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Countdown -->
@@ -724,22 +775,22 @@
     <div class="res-grid">
       <div class="res-tile">
         <span class="res-tile-icon">🔊</span>
-        <span class="res-tile-num">955</span>
+        <span class="res-tile-num">+950</span>
         <span class="res-tile-label">Sons &amp; SFX</span>
       </div>
       <div class="res-tile">
         <span class="res-tile-icon">🖼️</span>
-        <span class="res-tile-num">2 160</span>
+        <span class="res-tile-num">+2 000</span>
         <span class="res-tile-label">PNG &amp; overlays</span>
       </div>
       <div class="res-tile">
         <span class="res-tile-icon">🎶</span>
-        <span class="res-tile-num">60</span>
+        <span class="res-tile-num">+60</span>
         <span class="res-tile-label">Anasheed</span>
       </div>
       <div class="res-tile">
         <span class="res-tile-icon">🎨</span>
-        <span class="res-tile-num">310</span>
+        <span class="res-tile-num">+300</span>
         <span class="res-tile-label">LUTs</span>
       </div>
       <div class="res-tile">
@@ -759,7 +810,7 @@
       </div>
       <div class="res-tile">
         <span class="res-tile-icon">🔤</span>
-        <span class="res-tile-label">Police</span>
+        <span class="res-tile-label">Police tendance</span>
         <span class="res-tile-incl">incluse</span>
       </div>
     </div>
@@ -780,9 +831,8 @@
         <p class="tmpl-hero-desc">Glisse-dépose tes clips et ta vidéo est presque finie. Tous les textes, titres, CTA et transitions sont déjà animés et calibrés.</p>
         <ul class="tmpl-hero-points">
           <li>Textes et titres animés prêts à l'emploi</li>
-          <li>CTA intégrés, transitions incluses</li>
           <li>Compatible PC — s'installe en quelques secondes</li>
-          <li>Conçu pour les formats courts et longs</li>
+          <li>Conçu pour les formats courts</li>
         </ul>
       </div>
     </div>
