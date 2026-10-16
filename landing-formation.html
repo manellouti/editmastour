@@ -110,6 +110,69 @@
   gap: 12px;
   margin-top: 32px;
 }
+.perk-template {
+  grid-column: 1 / -1;
+  padding: 0 !important;
+  overflow: hidden;
+}
+.perk-template-inner {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+.perk-template-text {
+  flex: 1;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 24px 24px 24px 22px;
+}
+.perk-template-preview {
+  flex-shrink: 0;
+  width: 200px;
+  background: linear-gradient(135deg, #1a1027 0%, #2a1845 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 16px;
+  position: relative;
+}
+.perk-phone-wrap {
+  width: 80px;
+  height: 145px;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  border: 2px solid rgba(255,255,255,.15);
+  box-shadow: 0 8px 32px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.05);
+}
+.perk-phone-notch {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255,255,255,.25);
+  z-index: 2;
+}
+.perk-phone-label {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: .5rem;
+  color: rgba(255,255,255,.5);
+  white-space: nowrap;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+@media (max-width: 480px) {
+  .perk-template-inner { flex-direction: column; }
+  .perk-template-preview { width: 100%; padding: 16px; align-items: center; }
+  .perk-phone-wrap { width: 90px; height: 160px; }
+}
 .perk-item {
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -569,11 +632,25 @@
         <div class="perk-desc">Accès immédiat au niveau Débutante + le Drive de ressources complet dès la mise en ligne.</div>
       </div>
     </div>
-    <div class="perk-item">
-      <span class="perk-icon">📦</span>
-      <div>
-        <div class="perk-title">Templates CapCut</div>
-        <div class="perk-desc">Des templates prêts à l'emploi, adaptés à tes codes. Tu montes plus vite, avec un rendu cohérent dès le départ.</div>
+    <div class="perk-item perk-template">
+      <div class="perk-template-inner">
+        <div class="perk-template-text">
+          <span class="perk-icon" style="font-size:1.3rem;">📦</span>
+          <div>
+            <div class="perk-title">Templates CapCut préréglés</div>
+            <div class="perk-desc">Des templates prêts à l'emploi, adaptés à tes codes. Tu montes plus vite, avec un rendu cohérent dès le départ — textes, animations, tout est déjà en place.</div>
+          </div>
+        </div>
+        <div class="perk-template-preview">
+          <div class="perk-phone-wrap">
+            <div class="perk-phone-notch"></div>
+            <video src="https://res.cloudinary.com/q8uwpexc/video/upload/q_auto,f_auto/clip24.mp4"
+              autoplay loop muted playsinline
+              style="width:100%; height:100%; object-fit:cover; border-radius:inherit; display:block;">
+            </video>
+            <div class="perk-phone-label">Aperçu template texte</div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="perk-item">
@@ -754,7 +831,7 @@
 <!-- Sticky CTA mobile -->
 <div class="sticky-cta" id="stickyCta">
   <div class="sticky-cta-price">
-    <span class="now">Prévente</span>
+    <span class="now">529€</span>
   </div>
   <a href="https://webmastour.systeme.io/727ec785" class="btn-violet" style="width:auto; padding:12px 24px; font-size:.9rem;">Commander maintenant</a>
 </div>
