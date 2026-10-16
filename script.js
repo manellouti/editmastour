@@ -56,6 +56,7 @@ const VIDEOS = [
   { h:false, link:"", clip:"https://res.cloudinary.com/q8uwpexc/video/upload/q_auto,f_auto/clip21.mp4" },
   { h:false, link:"", clip:"https://res.cloudinary.com/q8uwpexc/video/upload/q_auto,f_auto/clip22.mp4" },
   { h:false, link:"", clip:"https://res.cloudinary.com/q8uwpexc/video/upload/q_auto,f_auto/clip23.mp4" },
+  { h:true,  link:"", clip:"https://res.cloudinary.com/q8uwpexc/video/upload/q_auto,f_auto/clip24.mp4" },
 
 
 
