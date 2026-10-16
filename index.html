@@ -35,51 +35,49 @@
   to   { transform: translateX(-50%); }
 }
 
-/* ── Hero 2 colonnes ── */
-.hero-layout { display:flex; align-items:center; gap:72px; max-width:1000px; width:100%; }
-.hero-left-col { flex:1; text-align:left; }
-.hero-right-col { flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:18px; }
+/* ── Hero centré (toujours en colonne) ── */
+.hero-layout { display:flex; flex-direction:column; align-items:center; gap:44px; width:100%; }
+.hero-left-col { text-align:center; max-width:620px; width:100%; }
+.hero-left-col h1 { font-size:clamp(2rem, 5.9vw, 4rem); }
+.hero-right-col { display:flex; flex-direction:column; align-items:center; gap:20px; }
 .hero-phone-wrap { position:relative; }
 .hero-phone-glow {
-  position:absolute; inset:-24px;
-  background:radial-gradient(ellipse at center, rgba(99,67,229,.35) 0%, transparent 70%);
+  position:absolute; inset:-36px;
+  background:radial-gradient(ellipse at center, rgba(99,67,229,.42) 0%, transparent 68%);
   border-radius:50%; pointer-events:none; z-index:0;
 }
 .hero-big-phone {
-  width:200px; height:356px; border-radius:32px; overflow:hidden;
-  border:2px solid rgba(255,255,255,.1); background:#070510; position:relative; z-index:1;
-  box-shadow:0 0 0 1px rgba(99,67,229,.2), 0 32px 80px rgba(0,0,0,.7), 0 0 60px rgba(99,67,229,.18);
+  width:230px; height:409px; border-radius:36px; overflow:hidden;
+  border:2px solid rgba(255,255,255,.08); background:#070510; position:relative; z-index:1;
+  box-shadow:0 0 0 1px rgba(99,67,229,.28), 0 40px 100px rgba(0,0,0,.85), 0 0 80px rgba(99,67,229,.22);
 }
 .hero-big-phone video { width:100%; height:100%; object-fit:cover; display:block; }
 .hero-phone-notch {
   position:absolute; top:10px; left:50%; transform:translateX(-50%);
-  width:30px; height:6px; border-radius:4px;
-  background:rgba(0,0,0,.6); z-index:2; pointer-events:none;
+  width:32px; height:7px; border-radius:4px;
+  background:rgba(0,0,0,.65); z-index:2; pointer-events:none;
 }
 .hero-phone-badge {
   position:absolute; bottom:-14px; left:50%; transform:translateX(-50%);
   background:var(--violet); color:#fff;
   font-size:.62rem; font-weight:800; letter-spacing:.07em; text-transform:uppercase;
-  padding:5px 14px; border-radius:20px; white-space:nowrap; z-index:2;
-  box-shadow:0 4px 16px rgba(99,67,229,.5);
+  padding:5px 16px; border-radius:20px; white-space:nowrap; z-index:2;
+  box-shadow:0 4px 20px rgba(99,67,229,.55);
 }
 .hero-res-block {
   background:var(--surface); border:1px solid var(--border);
-  border-radius:14px; padding:16px 20px; text-align:center; width:200px;
+  border-radius:14px; padding:16px 28px; text-align:center;
   box-shadow:0 8px 32px rgba(0,0,0,.3);
 }
-.hero-res-num { display:block; font-size:1.9rem; font-weight:900; color:var(--text); line-height:1; }
-.hero-res-sub { display:block; font-size:.7rem; color:var(--muted); margin-top:4px; letter-spacing:.02em; }
+.hero-res-num { display:block; font-size:2rem; font-weight:900; color:var(--text); line-height:1; }
+.hero-res-sub { display:block; font-size:.7rem; color:var(--muted); margin-top:4px; }
 .hero-res-pills { display:flex; flex-wrap:wrap; gap:5px; justify-content:center; margin-top:10px; }
 .hero-res-pill {
   font-size:.62rem; color:var(--violet-l); background:var(--tint-a);
   border:1px solid rgba(99,67,229,.25); border-radius:6px; padding:3px 8px; font-weight:600;
 }
-@media (max-width:720px) {
-  .hero-layout { flex-direction:column; gap:40px; }
-  .hero-left-col { text-align:center; }
-  .hero-big-phone { width:160px; height:284px; }
-  .hero-res-block { width:auto; min-width:180px; }
+@media (max-width:480px) {
+  .hero-big-phone { width:170px; height:302px; border-radius:28px; }
 }
 
 /* ── Countdown ── */
@@ -548,7 +546,7 @@
     <div class="hero-left-col">
       <h1>Apprends à monter<br>tes propres vidéos <em>faceless</em> sans musique.</h1>
       <p class="hero-sub">La méthode de montage qui existe enfin pour nous. Pensée pour tes codes, tes valeurs, tes contraintes.</p>
-      <div style="margin-top:32px; display:flex; flex-direction:column; align-items:flex-start; gap:12px; max-width:400px;">
+      <div style="margin-top:32px; display:flex; flex-direction:column; align-items:center; gap:12px; max-width:400px; margin-inline:auto;">
         <a href="#commander" class="btn-violet">
           Obtenir l'accès
           <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -561,7 +559,7 @@
         <div class="hero-phone-glow"></div>
         <div class="hero-big-phone">
           <div class="hero-phone-notch"></div>
-          <video src="https://res.cloudinary.com/q8uwpexc/video/upload/q_auto,f_auto/clip24.mp4" autoplay loop muted playsinline></video>
+          <video src="https://res.cloudinary.com/q8uwpexc/video/upload/q_auto,f_auto/clip24.mp4" poster="https://res.cloudinary.com/q8uwpexc/video/upload/so_0,q_auto,f_jpg/clip24.jpg" autoplay loop muted playsinline></video>
         </div>
         <div class="hero-phone-badge">Template disponible</div>
       </div>
