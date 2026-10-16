@@ -36,34 +36,50 @@
 }
 
 /* ── Hero 2 colonnes ── */
-.hero-layout { display:flex; align-items:center; gap:52px; max-width:900px; width:100%; }
+.hero-layout { display:flex; align-items:center; gap:72px; max-width:1000px; width:100%; }
 .hero-left-col { flex:1; text-align:left; }
-.hero-right-col { flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:14px; }
-.hero-phone-wrap { position:relative; margin-bottom:10px; }
+.hero-right-col { flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:18px; }
+.hero-phone-wrap { position:relative; }
+.hero-phone-glow {
+  position:absolute; inset:-24px;
+  background:radial-gradient(ellipse at center, rgba(99,67,229,.35) 0%, transparent 70%);
+  border-radius:50%; pointer-events:none; z-index:0;
+}
 .hero-big-phone {
-  width:130px; height:230px; border-radius:22px; overflow:hidden;
-  border:2.5px solid var(--border); background:#070510; position:relative;
-  box-shadow:0 20px 60px rgba(0,0,0,.5);
+  width:200px; height:356px; border-radius:32px; overflow:hidden;
+  border:2px solid rgba(255,255,255,.1); background:#070510; position:relative; z-index:1;
+  box-shadow:0 0 0 1px rgba(99,67,229,.2), 0 32px 80px rgba(0,0,0,.7), 0 0 60px rgba(99,67,229,.18);
 }
 .hero-big-phone video { width:100%; height:100%; object-fit:cover; display:block; }
 .hero-phone-notch {
-  position:absolute; top:8px; left:50%; transform:translateX(-50%);
-  width:26px; height:5px; border-radius:3px;
-  background:rgba(255,255,255,.15); z-index:2; pointer-events:none;
+  position:absolute; top:10px; left:50%; transform:translateX(-50%);
+  width:30px; height:6px; border-radius:4px;
+  background:rgba(0,0,0,.6); z-index:2; pointer-events:none;
+}
+.hero-phone-badge {
+  position:absolute; bottom:-14px; left:50%; transform:translateX(-50%);
+  background:var(--violet); color:#fff;
+  font-size:.62rem; font-weight:800; letter-spacing:.07em; text-transform:uppercase;
+  padding:5px 14px; border-radius:20px; white-space:nowrap; z-index:2;
+  box-shadow:0 4px 16px rgba(99,67,229,.5);
 }
 .hero-res-block {
   background:var(--surface); border:1px solid var(--border);
-  border-radius:12px; padding:14px 16px; text-align:center; min-width:142px;
+  border-radius:14px; padding:16px 20px; text-align:center; width:200px;
+  box-shadow:0 8px 32px rgba(0,0,0,.3);
 }
-.hero-res-num { display:block; font-size:1.55rem; font-weight:900; color:var(--text); line-height:1; }
-.hero-res-sub { display:block; font-size:.68rem; color:var(--muted); margin-top:3px; }
-.hero-res-pills { display:flex; flex-wrap:wrap; gap:4px; justify-content:center; margin-top:8px; }
-.hero-res-pill { font-size:.6rem; color:var(--muted); background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:2px 7px; }
-@media (max-width:680px) {
-  .hero-layout { flex-direction:column; gap:24px; }
+.hero-res-num { display:block; font-size:1.9rem; font-weight:900; color:var(--text); line-height:1; }
+.hero-res-sub { display:block; font-size:.7rem; color:var(--muted); margin-top:4px; letter-spacing:.02em; }
+.hero-res-pills { display:flex; flex-wrap:wrap; gap:5px; justify-content:center; margin-top:10px; }
+.hero-res-pill {
+  font-size:.62rem; color:var(--violet-l); background:var(--tint-a);
+  border:1px solid rgba(99,67,229,.25); border-radius:6px; padding:3px 8px; font-weight:600;
+}
+@media (max-width:720px) {
+  .hero-layout { flex-direction:column; gap:40px; }
   .hero-left-col { text-align:center; }
-  .hero-right-col { flex-direction:row; align-items:flex-start; gap:12px; }
-  .hero-res-block { min-width:unset; }
+  .hero-big-phone { width:160px; height:284px; }
+  .hero-res-block { width:auto; min-width:180px; }
 }
 
 /* ── Countdown ── */
@@ -542,11 +558,12 @@
     </div>
     <div class="hero-right-col">
       <div class="hero-phone-wrap">
+        <div class="hero-phone-glow"></div>
         <div class="hero-big-phone">
           <div class="hero-phone-notch"></div>
           <video src="https://res.cloudinary.com/q8uwpexc/video/upload/q_auto,f_auto/clip24.mp4" autoplay loop muted playsinline></video>
         </div>
-        <div class="tmpl-badge-avail">Template disponible</div>
+        <div class="hero-phone-badge">Template disponible</div>
       </div>
       <div class="hero-res-block">
         <span class="hero-res-num">+3 000</span>
