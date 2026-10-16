@@ -180,17 +180,96 @@
   letter-spacing: .06em;
   margin-top: 2px;
 }
-/* ── Apercu video dans perk card ── */
-.perk-video-thumb {
-  flex-shrink: 0;
-  width: 44px;
-  height: 78px;
-  border-radius: 8px;
+/* ── Template showcase ── */
+.template-showcase {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
   overflow: hidden;
-  border: 1.5px solid var(--border);
-  align-self: center;
+  margin-top: 12px;
 }
-.perk-video-thumb video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tmpl-hero {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 32px 28px 28px;
+}
+.tmpl-big-phone-wrap { flex-shrink: 0; position: relative; margin-bottom: 14px; }
+.tmpl-big-phone {
+  width: 134px;
+  height: 238px;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 2.5px solid var(--border);
+  background: #070510;
+  position: relative;
+  box-shadow: 0 16px 48px rgba(0,0,0,.45);
+}
+.tmpl-big-phone video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tmpl-phone-notch {
+  position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+  width: 28px; height: 5px; border-radius: 3px;
+  background: rgba(255,255,255,.18); z-index: 2;
+}
+.tmpl-badge-avail {
+  position: absolute; bottom: -11px; left: 50%; transform: translateX(-50%);
+  background: var(--violet); color: #fff;
+  font-size: .6rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase;
+  padding: 4px 11px; border-radius: 20px; white-space: nowrap;
+}
+.tmpl-hero-content { flex: 1; }
+.tmpl-hero-title { font-size: 1.05rem; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+.tmpl-hero-desc { font-size: .82rem; color: var(--muted); line-height: 1.65; margin-bottom: 14px; }
+.tmpl-hero-points { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 7px; }
+.tmpl-hero-points li { font-size: .8rem; color: var(--soft); display: flex; align-items: center; gap: 8px; }
+.tmpl-hero-points li::before { content: "✓"; color: var(--violet-l); font-weight: 800; font-size: .76rem; flex-shrink: 0; }
+/* trio de mockups */
+.tmpl-variants {
+  display: flex; justify-content: center; gap: 24px;
+  padding: 20px 28px 28px;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+.tmpl-variant { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.tmpl-sm-phone {
+  width: 72px; height: 128px;
+  border-radius: 14px; overflow: hidden;
+  border: 2px solid var(--border);
+  background: #070510;
+  position: relative;
+  box-shadow: 0 4px 16px rgba(0,0,0,.3);
+}
+.tmpl-sm-phone video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tmpl-sm-notch {
+  position: absolute; top: 4px; left: 50%; transform: translateX(-50%);
+  width: 16px; height: 3px; border-radius: 2px;
+  background: rgba(255,255,255,.18); z-index: 2;
+}
+.tmpl-sm-locked-bg {
+  width: 100%; height: 100%;
+  background: linear-gradient(160deg, #130e22 0%, #0a0715 60%, #130e22 100%);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.tmpl-sm-locked-bg::before {
+  content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 8px, rgba(255,255,255,.025) 8px, rgba(255,255,255,.025) 9px);
+}
+.tmpl-lock-icon { font-size: 1.2rem; opacity: .3; position: relative; z-index: 1; }
+.tmpl-variant-label { font-size: .72rem; font-weight: 700; color: var(--text); text-align: center; line-height: 1.3; }
+.tmpl-variant-soon .tmpl-variant-label { color: var(--muted); }
+.tmpl-variant-tag {
+  font-size: .58rem; font-weight: 800; text-transform: uppercase; letter-spacing: .07em;
+  padding: 3px 9px; border-radius: 8px;
+}
+.tmpl-variant-tag.avail { background: var(--violet); color: #fff; }
+.tmpl-variant-tag.soon { background: var(--surface); border: 1px solid var(--border); color: var(--muted); }
+@media (max-width: 520px) {
+  .tmpl-hero { flex-direction: column; align-items: center; text-align: center; padding: 24px 20px 22px; }
+  .tmpl-hero-points { align-items: center; }
+  .tmpl-variants { gap: 14px; padding: 16px 12px 24px; }
+  .tmpl-sm-phone { width: 62px; height: 110px; }
+}
 .perk-item {
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -713,6 +792,57 @@
     </div>
   </div>
 
+  <!-- Template showcase -->
+  <div class="template-showcase rv">
+    <!-- Hero : grand mockup + texte -->
+    <div class="tmpl-hero">
+      <div class="tmpl-big-phone-wrap">
+        <div class="tmpl-big-phone">
+          <div class="tmpl-phone-notch"></div>
+          <video src="https://res.cloudinary.com/q8uwpexc/video/upload/q_auto,f_auto/clip24.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="tmpl-badge-avail">Disponible</div>
+      </div>
+      <div class="tmpl-hero-content">
+        <div class="tmpl-hero-title">Template CapCut pré-réglé</div>
+        <p class="tmpl-hero-desc">Glisse-dépose tes clips et ta vidéo est presque finie. Tous les textes, titres, CTA et transitions sont déjà animés et calibrés.</p>
+        <ul class="tmpl-hero-points">
+          <li>Textes et titres animés prêts à l'emploi</li>
+          <li>CTA intégrés, transitions incluses</li>
+          <li>Compatible PC — s'installe en quelques secondes</li>
+          <li>Conçu pour les formats courts et longs</li>
+        </ul>
+      </div>
+    </div>
+    <!-- Trio de variants -->
+    <div class="tmpl-variants">
+      <div class="tmpl-variant tmpl-variant-soon">
+        <div class="tmpl-sm-phone">
+          <div class="tmpl-sm-notch"></div>
+          <div class="tmpl-sm-locked-bg"><span class="tmpl-lock-icon">🔒</span></div>
+        </div>
+        <div class="tmpl-variant-label">Éléments<br>graphiques</div>
+        <span class="tmpl-variant-tag soon">À venir</span>
+      </div>
+      <div class="tmpl-variant">
+        <div class="tmpl-sm-phone">
+          <div class="tmpl-sm-notch"></div>
+          <video src="https://res.cloudinary.com/q8uwpexc/video/upload/q_auto,f_auto/clip24.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="tmpl-variant-label">Préréglages<br>texte</div>
+        <span class="tmpl-variant-tag avail">Disponible</span>
+      </div>
+      <div class="tmpl-variant tmpl-variant-soon">
+        <div class="tmpl-sm-phone">
+          <div class="tmpl-sm-notch"></div>
+          <div class="tmpl-sm-locked-bg"><span class="tmpl-lock-icon">🔒</span></div>
+        </div>
+        <div class="tmpl-variant-label">Motion<br>design</div>
+        <span class="tmpl-variant-tag soon">À venir</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Cartes bonus et accès -->
   <div class="perks-grid rv">
     <div class="perk-item">
@@ -720,16 +850,6 @@
       <div>
         <div class="perk-title">Module 1 dès le 15 octobre</div>
         <div class="perk-desc">Accès immédiat au niveau Débutante + toutes les ressources du Drive dès la mise en ligne.</div>
-      </div>
-    </div>
-    <div class="perk-item">
-      <span class="perk-icon">📝</span>
-      <div style="flex:1;">
-        <div class="perk-title">Template CapCut préréglé</div>
-        <div class="perk-desc">Textes, titres et CTA déjà animés, prêts à l'emploi. Tu l'installes sur ton PC et tu l'utilises directement dans tes vidéos.</div>
-      </div>
-      <div class="perk-video-thumb">
-        <video src="https://res.cloudinary.com/q8uwpexc/video/upload/q_auto,f_auto/clip24.mp4" autoplay loop muted playsinline></video>
       </div>
     </div>
     <div class="perk-item">
