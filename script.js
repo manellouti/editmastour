@@ -262,3 +262,41 @@ document.querySelectorAll('[data-waitlist]').forEach(form => {
     }
   });
 });
+
+// ---------- Parallax souris sur la hero section ----------
+(function(){
+  const hero = document.getElementById('hero');
+  if (!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const layers = [
+    { sel: '.hero-tag',         depth:  0.012 },
+    { sel: '.hero-left-col h1', depth:  0.022 },
+    { sel: '.hero-sub',         depth:  0.015 },
+    { sel: '.hero-phone-wrap',  depth: -0.038 },
+    { sel: '.hero-res-block',   depth: -0.018 },
+  ].map(l => ({ el: hero.querySelector(l.sel), depth: l.depth }))
+   .filter(l => l.el);
+
+  layers.forEach(({ el }) => { el.style.willChange = 'transform'; });
+
+  let tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  function tick() {
+    cx = lerp(cx, tx, 0.07);
+    cy = lerp(cy, ty, 0.07);
+    layers.forEach(({ el, depth }) => {
+      el.style.transform = `translate(${(cx * depth).toFixed(2)}px, ${(cy * depth).toFixed(2)}px)`;
+    });
+    raf = requestAnimationFrame(tick);
+  }
+
+  hero.addEventListener('mousemove', e => {
+    const r = hero.getBoundingClientRect();
+    tx = e.clientX - r.left - r.width  / 2;
+    ty = e.clientY - r.top  - r.height / 2;
+    if (!raf) tick();
+  });
+
+  hero.addEventListener('mouseleave', () => { tx = 0; ty = 0; });
+})();
