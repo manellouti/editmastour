@@ -501,6 +501,18 @@ footer{padding-block:40px 30px}
 .wtoast{right:-20px;top:120px}
 @media (max-width:900px){.com{grid-template-columns:1fr}.wtoast{right:0}}
 
+
+/* mobile : pas de débordement, titre avant l'image */
+html,body{overflow-x:clip}
+.halo{max-width:100vw;max-height:100vw}
+@media (max-width:900px){
+  .tpl,.com,.me{gap:18px}
+  .tpl>.tl,.com>.tl,.me>.txt{display:contents}
+  .tpl>.tl>*,.com>.tl>*,.me>.txt>*{order:3}
+  .tpl>.tl>.eyebrow,.tpl>.tl>h2,.com>.tl>.eyebrow,.com>.tl>h2,.me>.txt>.eyebrow,.me>.txt>h2{order:1}
+  .tpl>.stagep,.com>.stagep,.me>.mestage{order:2}
+  .tpl>.stagep,.com>.stagep{height:600px}
+}
 </style>
 </head>
 <body>
