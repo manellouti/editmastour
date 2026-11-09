@@ -513,6 +513,24 @@ html,body{overflow-x:clip}
   .tpl>.stagep,.com>.stagep,.me>.mestage{order:2}
   .tpl>.stagep,.com>.stagep{height:600px}
 }
+
+/* instagram */
+.igbox{display:flex;flex-direction:column;gap:22px;margin:10px 0 90px;background:var(--card);border-radius:28px;box-shadow:0 0 0 1px var(--line),0 50px 100px -60px rgba(30,20,80,.35);padding:22px}
+.ighead{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.igpro{display:flex;gap:14px;align-items:center;color:var(--ink);text-decoration:none;min-width:0}
+.igav{width:58px;height:58px;border-radius:50%;padding:3px;background:conic-gradient(from 210deg,#FEDA75,#FA7E1E,#D62976,#962FBF,#6343E5,#FEDA75);flex:none}
+.igav img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid var(--card);box-sizing:border-box}
+.igpro b{display:block;font-weight:600;font-size:17px;letter-spacing:-.02em}.igpro small{color:var(--muted);font-size:13.5px}
+.igbtn{display:inline-flex;gap:8px;align-items:center}
+.iggrid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}.igav img{background:#fff;object-fit:contain!important;padding:9px}
+.ighd{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;margin:10px 0 40px}
+.igt{position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;background:#0C0B10;display:block}
+.igt img,.igt video{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.igt:hover img,.igt:hover video{transform:scale(1.05)}
+.igt::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(12,11,16,.55));opacity:0;transition:opacity .3s}
+.igt:hover::after{opacity:1}
+.igt i{position:absolute;right:8px;top:8px;z-index:2;color:#fff;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+@media (max-width:900px){.iggrid{grid-template-columns:repeat(3,1fr)}.igbtn{width:100%;justify-content:center}}
 </style>
 </head>
 <body>
@@ -797,7 +815,18 @@ html,body{overflow-x:clip}
 </div></section>
 
 <footer class="g"><div class="in">
-  <div class="last"><span class="eyebrow">Dernière chance</span><h2 class="blur">Prête à te <span class="it">lancer</span> ?</h2><a class="btn dark" href="#offre">Je commande · 529 €</a></div>
+  <div class="ighd"><span class="eyebrow">Sur Instagram</span><h2 class="blur">Pour rester <span class="it">informée</span></h2><p class="lead">Mes derniers Reels, les coulisses de la formation et les nouveautés, au fil de l'eau.</p></div>
+  <div class="igbox">
+    <div class="ighead">
+      <a class="igpro" href="https://www.instagram.com/webmastour/" target="_blank" rel="noopener">
+        <span class="igav"><img src="logo.svg" alt="Webmastour"></span>
+        <span><b>@webmastour</b><small>Webmastour · Montage & Motion design · 1 232 followers</small></span>
+      </a>
+      <a class="btn dark igbtn" href="https://www.instagram.com/webmastour/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Me suivre sur Instagram</a>
+    </div>
+    <div class="iggrid" id="iggrid"></div>
+  </div>
+    <div class="last"><span class="eyebrow">Dernière chance</span><h2 class="blur">Prête à te <span class="it">lancer</span> ?</h2><a class="btn dark" href="#offre">Je commande · 529 €</a></div>
   <div class="fl"><a class="brand" href="#"><img src="logo.svg" alt="Logo Webmastour">Edit Mastour</a><span>Webmastour · Manel · © 2026</span></div>
 </div></footer>
 
@@ -997,6 +1026,16 @@ if(!RM){
   gsap.from('.fold2',{y:16,opacity:0,stagger:.03,duration:.5,ease:'power2.out',scrollTrigger:{trigger:'.finder',start:'top 80%'}});
   $$('[data-to]').forEach(b=>{const o={v:0},to=+b.dataset.to,pre=b.dataset.pre||'',suf=b.dataset.suf||'';gsap.to(o,{v:to,duration:1.8,ease:'power2.out',scrollTrigger:{trigger:b,start:'top 92%'},onUpdate:()=>b.textContent=pre+fmt(Math.round(o.v))+suf})});
 }else{$$('[data-to]').forEach(b=>b.textContent=(b.dataset.pre||'')+fmt(+b.dataset.to)+(b.dataset.suf||''))}
+
+// instagram : feed Behold si configuré, sinon derniers clips
+const IG_FEED='';const IG='https://www.instagram.com/webmastour/';
+const igIc='<i><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></i>';
+function igDraw(items){$('#iggrid').innerHTML=items.slice(0,12).map(p=>`<a class="igt" href="${p.href}" target="_blank" rel="noopener" aria-label="Voir sur Instagram">${p.img?`<img src="${p.img}" alt="" loading="lazy">`:`<video src="${p.vid}" muted loop playsinline preload="metadata"></video>`}${p.reel?igIc:''}</a>`).join('');
+  $$('#iggrid video').forEach(v=>{const a=v.parentElement;a.onmouseenter=()=>v.play().catch(()=>{});a.onmouseleave=()=>v.pause()});
+  if(!RM)gsap.from('.igt',{y:30,opacity:0,stagger:.07,duration:.7,ease:'expo.out',scrollTrigger:{trigger:'#iggrid',start:'top 85%'}})}
+const IGP=[["reel", "Dd7CXMMI8HA"], ["p", "DZxuEIFCHmV"], ["reel", "DZslLnYo1IK"], ["reel", "DeSDSGEorW9"], ["p", "DeAIWmpCORE"], ["reel", "Dc9CO45IG_G"], ["reel", "Daqk5skIfeF"], ["p", "DagE_G_CAKD"], ["reel", "DaLuyjjIPpK"], ["p", "DaDn8_1CJj-"], ["reel", "DZ-aDZjKmSm"], ["reel", "DZ5TSM5oo_6"]];
+igDraw(IGP.map(([t,c])=>({href:`https://www.instagram.com/${t}/${c}/`,img:`ig/${c}.jpg`,reel:t==='reel'})));
+if(IG_FEED)fetch(IG_FEED).then(r=>r.json()).then(d=>{const ps=(d.posts||d).map(p=>({href:p.permalink,img:(p.sizes&&p.sizes.medium&&p.sizes.medium.mediaUrl)||p.thumbnailUrl||p.mediaUrl}));if(ps.length)igDraw(ps)}).catch(()=>{});
 </script>
 </body>
 </html>
