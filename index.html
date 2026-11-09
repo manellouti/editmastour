@@ -314,9 +314,10 @@ nav .in{display:flex;justify-content:space-between;align-items:center;padding-bl
 /* portfolio */
 .stage3{height:min(600px,130vw);perspective:1700px;display:grid;place-items:center;cursor:grab;touch-action:pan-y;user-select:none}
 .ring{position:relative;width:210px;height:373px;transform-style:preserve-3d}
-.rc{position:absolute;inset:0;border-radius:22px;overflow:hidden;backface-visibility:hidden;box-shadow:0 30px 60px -30px rgba(30,20,80,.55);background:#111}
+.rc{position:absolute;inset:0;border-radius:22px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 30px 60px -30px rgba(30,20,80,.55);background:#111}
 .rc .or{position:absolute;right:10px;top:10px;z-index:2;font:500 10px var(--mono);color:#fff;background:rgba(0,0,0,.4);padding:3px 6px;border-radius:5px}
 @media (max-width:600px){.ring{width:150px;height:267px}}
+.rc video{width:100%;height:100%;object-fit:cover;display:block;-webkit-transform:translateZ(0)}
 .modal{position:fixed;inset:0;z-index:90;background:rgba(12,11,16,.85);backdrop-filter:blur(12px);display:grid;place-items:center;padding:20px}
 .modal video{border-radius:20px;background:#000;object-fit:contain}
 .modal video.pt{height:min(86vh,820px);width:auto;max-width:100%;aspect-ratio:9/16}
@@ -998,7 +999,7 @@ function calc(){const n=+$('#nv').value,p=+$('#pv').value,mo=n*p,yr=mo*12;$('#nv
 
 // portfolio 3D
 const ring=$('#ring'),PF=[...VERT.slice(0,9),'clips/clip1.mp4','clips/clip2.mp4','clips/clip13.mp4'],N=PF.length;
-PF.forEach(c=>{const d=document.createElement('div');d.className='rc';d.dataset.src=c;d.innerHTML=`<video data-src="${c}" muted loop playsinline preload="none"></video>`;ring.appendChild(d)});
+PF.forEach(c=>{const d=document.createElement('div');d.className='rc';d.dataset.src=c;d.innerHTML=`<video data-src="${c}" poster="${c.replace('clips/','clips/poster/').replace('.mp4','.jpg')}" muted loop playsinline webkit-playsinline disablepictureinpicture preload="none"></video>`;ring.appendChild(d)});
 function lay(){const R=innerWidth<600?280:470;$$('.rc').forEach((c,i)=>c.style.transform=`rotateY(${i*360/N}deg) translateZ(${R}px)`)}
 lay();addEventListener('resize',lay);
 let rot=0,vel=-.15,drag=false,lx=0,moved=0;const st3=$('#stage3');
@@ -1006,7 +1007,11 @@ st3.addEventListener('pointerdown',e=>{drag=true;lx=e.clientX;moved=0});
 addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-lx;lx=e.clientX;moved+=Math.abs(dx);rot+=dx*.3;vel=dx*.3});
 addEventListener('pointerup',e=>{if(drag&&moved<6){const c=e.target.closest('.rc');if(c)openM(c.dataset.src)}drag=false});
 (function spin(){if(!drag){rot+=vel;vel+=(-.15-vel)*.03}ring.style.transform=`rotateX(-5deg) rotateY(${rot}deg)`;requestAnimationFrame(spin)})();
-new IntersectionObserver(es=>es.forEach(en=>$$('.rc video').forEach(v=>{if(en.isIntersecting){if(!v.src)v.src=v.dataset.src;v.play().catch(()=>{})}else v.pause()})),{threshold:.1}).observe(st3);
+// ne lire que les cartes face à l'écran (les téléphones ne décodent que quelques vidéos à la fois)
+let st3on=false;const rcs=$$('.rc'),MAXP=innerWidth<600?2:4;
+new IntersectionObserver(es=>es.forEach(en=>{st3on=en.isIntersecting;if(!st3on)rcs.forEach(c=>c.querySelector('video').pause())}),{threshold:.1}).observe(st3);
+setInterval(()=>{if(!st3on)return;const f=rcs.map((c,i)=>{let a=((i*360/N+rot)%360+360)%360;if(a>180)a-=360;return{c,a:Math.abs(a)}}).sort((x,y)=>x.a-y.a);
+  f.forEach((o,k)=>{const v=o.c.querySelector('video');if(k<MAXP&&o.a<70){if(!v.src)v.src=v.dataset.src;if(v.paused)v.play().catch(()=>{})}else if(!v.paused)v.pause()})},400);
 function openM(src){const m=$('#modal'),v=$('#mv');v.className='';v.src=src;v.muted=false;
   v.onloadedmetadata=()=>{const r=v.videoWidth/v.videoHeight;v.className=r>1.2?'ls':r<.85?'pt':'sq'};m.hidden=false;v.play().catch(()=>{})}
 const closeM=()=>{$('#modal').hidden=true;$('#mv').pause()};
